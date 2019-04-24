@@ -1,7 +1,7 @@
 package mmp.filter;
 
-public interface Filter {
+public interface Filter<I, O> {
 
-    void invoke(FilterChain chain) throws Exception;
+    void filter(I input, O output, FilterChain<I, O> chain) throws Exception;
 
 }

@@ -5,6 +5,6 @@ public enum CallType {
     SYNC,
     FUTURE,
     CALLBACK,
-    ONEWAY;
+    ONEWAY,
 
 }

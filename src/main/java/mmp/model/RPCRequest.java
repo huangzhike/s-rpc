@@ -1,4 +1,4 @@
-package mmp;
+package mmp.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -18,5 +18,6 @@ public class RPCRequest {
     private Class<?>[] parameterTypes;
     private Object[] parameters;
 
+    private String key;
 
 }

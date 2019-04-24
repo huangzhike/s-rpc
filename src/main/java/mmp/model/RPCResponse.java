@@ -1,4 +1,4 @@
-package mmp;
+package mmp.model;
 
 
 import lombok.Data;
@@ -6,11 +6,13 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class RPCResponse<T> {
+public class RPCResponse {
 
     private String requestId;
 
     private Throwable error;
 
-    private T result;
+    private Object result;
+
+
 }

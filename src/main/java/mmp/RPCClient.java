@@ -1,5 +1,7 @@
 package mmp;
 
+import mmp.model.RPCRequest;
+
 public interface RPCClient {
 
     Long generateRequestId();

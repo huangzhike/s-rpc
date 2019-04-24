@@ -8,6 +8,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class RPCConfig {
 
-    public static final Integer DEFAULT_TIMEOUT = 15;
+    public static final Integer DEFAULT_TIMEOUT = 10;
 
 }

@@ -2,7 +2,8 @@ package mmp;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import mmp.balance.ILoadBalance;
+import mmp.model.RPCRequest;
+import mmp.model.RPCResponse;
 
 import java.util.List;
 import java.util.Map;

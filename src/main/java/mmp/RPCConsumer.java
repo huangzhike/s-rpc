@@ -1,6 +1,7 @@
 package mmp;
 
 import mmp.balance.ILoadBalance;
+import mmp.model.RPCRequest;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -25,7 +26,7 @@ public class RPCConsumer {
     public <T> T build(Class<T> service, RequestConfig requestConfig) {
         return ProxyFactory.getProxy(service, new InvocationHandler() {
             @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
 
                 RPCRequest rpcRequest = new RPCRequest();
 
@@ -37,6 +38,7 @@ public class RPCConsumer {
                 ILoadBalance loadBalance = requestConfig.getLoadBalance();
 
                 String serviceKey = rpcRequest.getClassName() + rpcRequest.getMethodName();
+
                 RPCClient rpcClient = select(loadBalance, serviceKey, clientMap);
 
                 rpcRequest.setRequestId(String.valueOf(rpcClient.generateRequestId()));
@@ -44,6 +46,7 @@ public class RPCConsumer {
                 RPCContext rpcContext = RPCContext.getOrCreateContext();
 
                 rpcContext.setRpcRequest(rpcRequest);
+
                 RPCFuture rpcFuture = new RPCFuture();
                 rpcFuture.setRequestId(rpcRequest.getRequestId());
 
@@ -51,7 +54,6 @@ public class RPCConsumer {
                     List<RPCCallback> callbackList = rpcContext.getRpcCallbackList();
                     rpcFuture.setRpcCallbackList(callbackList);
                 }
-
 
                 rpcContext.setRpcFuture(rpcFuture);
 
@@ -84,7 +86,6 @@ public class RPCConsumer {
 
 
     protected RPCRequest beforeCall(RPCRequest rpcRequest) {
-
 
         return rpcRequest;
     }

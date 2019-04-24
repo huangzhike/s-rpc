@@ -2,6 +2,7 @@ package mmp;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import mmp.model.RPCResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ public class RPCFuture implements Future {
     private Semaphore semaphore = new Semaphore(0);
 
     public RPCFuture() {
-
     }
 
     public RPCFuture(int timeOut) {
@@ -72,19 +72,15 @@ public class RPCFuture implements Future {
     public void success(RPCResponse rpcResponse) {
         setRpcResponse(rpcResponse);
         done = true;
-
         if (rpcCallbackList != null && rpcCallbackList.size() > 0) {
             RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(rpcCallback -> rpcCallback.onSuccess()));
-
         }
-
         semaphore.release();
     }
 
     public void fail(RPCResponse rpcResponse) {
         setRpcResponse(rpcResponse);
         done = true;
-
         if (rpcCallbackList != null && rpcCallbackList.size() > 0) {
             RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(rpcCallback -> rpcCallback.onFailure()));
         }
