@@ -73,7 +73,7 @@ public class RPCFuture implements Future {
         setRpcResponse(rpcResponse);
         done = true;
         if (rpcCallbackList != null && rpcCallbackList.size() > 0) {
-            RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(rpcCallback -> rpcCallback.onSuccess()));
+            RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(RPCCallback::onSuccess));
         }
         semaphore.release();
     }
@@ -82,7 +82,7 @@ public class RPCFuture implements Future {
         setRpcResponse(rpcResponse);
         done = true;
         if (rpcCallbackList != null && rpcCallbackList.size() > 0) {
-            RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(rpcCallback -> rpcCallback.onFailure()));
+            RPCContext.getCallbackExecutorService().submit(() -> rpcCallbackList.forEach(RPCCallback::onFailure));
         }
         semaphore.release();
     }
